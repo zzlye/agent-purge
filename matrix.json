@@ -131,6 +131,21 @@
         "preferredMode": "replace"
       }
     },
+    "claude-desktop": {
+      "class": "desktop-sdk-bridge",
+      "override": true,
+      "inject": true,
+      "hotSwitch": false,
+      "patch": false,
+      "launcher": "Claude 桌面端本机 Code：替换缓存运行时入口为转发器，SDK initialize 改写系统提示词；从桌面图标正常启动",
+      "defaultSystemChars": null,
+      "purgedSystemChars": null,
+      "measuredVersion": "Code 2.1.317 / Desktop 4.23118.0",
+      "verify": "capture.mjs（隔离桌面运行时：真实 Code 2.1.317 硬链接 + 桌面端 SDK initialize + 本地假 provider）四模式通过；本机已接入入口 + 真实人设复核通过",
+      "residue": "运行时固定前置 SDK 身份句（You are Claude Code, ... running within the Claude Agent SDK.）；replace 整段替换内置默认提示词并保留桌面端追加段；旧会话提示词快照不变",
+      "note": "独立于 Claude CLI；覆盖 %LOCALAPPDATA%Claude-3p 与 %APPDATA%Claude 两套数据目录；不覆盖 Chat/Cowork/SSH/WSL。转发脚本缺失时入口直通原程序。桌面更新下载新运行时后需重新应用。",
+      "preferredMode": "append"
+    },
     "claude": {
       "class": "launch-arg + binary-patch",
       "override": true,

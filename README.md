@@ -29,6 +29,7 @@ agent-purge 是一个本地提示词配置工具，为 Codex、Claude Code、Ope
 - **支持热切，也说明边界**：具备每轮回调的动态通道可在下一轮读取变更；静态入口需要新会话。
 - **变更可追溯、可撤销**：记录托管写入和恢复依据；外部修改会保留，恢复冲突明确报错。
 - **本地优先、零生产依赖**：不需要额外云端配置服务，人设与程序分开保存，升级不覆盖用户数据。
+- **支持 Claude 桌面端**：除了命令行版，Windows 上 Claude 桌面端的 Code 模式也能使用你的人设，新建会话即生效，随时可暂停或完整还原。
 
 ## 快速开始
 
@@ -152,12 +153,24 @@ agent-purge status
 | OpenCode 1.x / 2.x | 1.19.5 / 2.2.5 | 已验证 |
 | DSH | 0.2.1-rc.5 | 已验证（SDK 同会话；headless/web/desktop 三形态四模式已抓） |
 | Codex / Claude Code | 0.166.0 / 2.1.316 | 启动入口已验证；热切未验证 |
+| Claude 桌面端 Code 模式（Windows） | Code 2.1.317 / 桌面端 4.23118.0 | 四种模式已在本机实测；新建会话生效，同会话热切不支持 |
 | CodeBuddy / Grok | 2.179.0 / 1.0.73 | 启动入口已验证；热切未验证 |
 | Kilo Code | @kilocode/cli 7.8.18 | off/strict/replace/append 四模式真实抓包；system 层 marker=1 |
 | WorkBuddy / WorkBuddy AI | 5.9.3 / 5.9.4 | 身份上下文已验证（国际版写 `app/app-config.json`）；热切未验证 |
 | PI-Desktop | 0.21.0（便携版） | 已实测：常驻写 `~/.pi/agent/SYSTEM.md`；热切装在 `plugins/imported` 的 imported 插件里，同一会话换人设/`/purge off` 下一轮生效 |
 
 首次安装或更新插件代码后，仍需重新加载宿主。**配置写入、历史测试通过、当前会话实际生效，是不同状态。**
+
+### Claude 桌面端怎么用
+
+Claude 桌面端的 **Code** 模式在列表里单独叫 `claude-desktop`，命令行版仍然是 `claude`，两者可以分别选人设和模式。
+
+1. 先在 Claude 桌面端打开一次 Code 模式，等它准备就绪。
+2. 在 agent-purge 控制台勾选 `claude-desktop` 并点「应用」（或运行 `agent-purge install claude-desktop`）。
+3. 回到 Claude 桌面端，**新建**一个 Code 会话即可使用人设；已经打开的会话保持原样。
+4. 改了人设或模式后，同样新建会话生效。Claude 桌面端自身更新后，回到控制台再点一次「应用」。
+
+想停用时，暂停或关闭 `claude-desktop` 即可，新会话会恢复原样；运行 `agent-purge uninstall claude-desktop` 会把桌面端还原到接入前的状态。即使卸载或移动了 agent-purge，Claude 桌面端也能照常使用。目前支持 Windows 上桌面端本机的 Code 会话，聊天（Chat）、Cowork 和远程会话不在范围内。更详细的说明见 [Claude 桌面端接入](docs/claude-desktop.md)。
 
 Windows 与 WSL/Linux 已执行回归，macOS 尚待实机验证。Hermes、zcode、antigravity 未计为本轮通过。请求角色、宿主残留、浏览器覆盖与已知安装问题统一记录在[兼容性与限制](docs/compatibility.md)，不以模型自称身份作为验收依据。
 

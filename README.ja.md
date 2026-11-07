@@ -128,11 +128,23 @@ agent-purge status
 | OpenCode 1.x / 2.x | 1.19.5 / 2.2.5 | 検証済み |
 | DSH (DeepSeek Harness) | 0.2.1-rc.5 | 検証済み（SDK セッション内；Headless / Web / Desktop 全形態キャプチャ完了） |
 | Codex / Claude Code | 0.166.0 / 2.1.316 | 起動エントリ検証済み；ホットスイッチ未検証 |
+| Claude デスクトップ版 Code モード（Windows） | Code 2.1.317 / デスクトップ 4.23118.0 | 4 モードをローカルで実測；新規セッションで適用、同一セッション切替は非対応 |
 | CodeBuddy / Grok | 2.179.0 / 1.0.73 | 起動エントリ検証済み；ホットスイッチ未検証 |
 | Kilo Code | @kilocode/cli 7.8.18 | 全4モード実リクエストキャプチャ完了；system 層でマーカー確認 |
 | WorkBuddy / WorkBuddy AI | 5.9.3 / 5.9.4 | 身元設定（`IDENTITY.md`, `SOUL.md`, `USER.md` および `customPrompt`、国際版は `app/app-config.json` に保存）検証済み；ホットスイッチ未検証 |
 
 詳細な互換性情報および制限事項は [docs/compatibility.md](docs/compatibility.md) をご参照ください。
+
+### Claude デスクトップ版
+
+Claude デスクトップ版の **Code** モードは `claude-desktop` として個別に表示されます。コマンドライン版は従来どおり `claude` で、それぞれ別のペルソナとモードを選べます。
+
+1. Claude デスクトップ版で一度 Code モードを開き、準備が終わるまで待ちます。
+2. agent-purge コンソールで `claude-desktop` を選んで「適用」を押します（または `agent-purge install claude-desktop`）。
+3. Claude デスクトップ版で **新しい** Code セッションを開始します。開いているセッションはそのままです。
+4. ペルソナやモードを変えたら、新しいセッションで反映されます。Claude デスクトップ版の更新後はもう一度「適用」を押してください。
+
+停止するには `claude-desktop` を一時停止またはオフにします。`agent-purge uninstall claude-desktop` で元の状態に戻ります。agent-purge を削除・移動しても Claude デスクトップ版はそのまま使えます。Chat、Cowork、リモートセッションは対象外です。
 
 ## 一時停止とアンインストール
 

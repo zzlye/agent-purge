@@ -128,11 +128,23 @@ The following table summarizes verification status across supported agents. Requ
 | OpenCode 1.x / 2.x | 1.19.5 / 2.2.5 | Verified |
 | DSH (DeepSeek Harness) | 0.2.1-rc.5 | Verified (SDK in-session; Headless, Web, and Desktop all verified via live request capture) |
 | Codex / Claude Code | 0.166.0 / 2.1.316 | Launch entry verified; hot-switching unverified |
+| Claude Desktop, Code mode (Windows) | Code 2.1.317 / Desktop 4.23118.0 | All four modes tested locally; applies to new sessions, no same-session switching |
 | CodeBuddy / Grok | 2.179.0 / 1.0.73 | Launch entry verified; hot-switching unverified |
 | Kilo Code | @kilocode/cli 7.8.18 | All 4 modes verified via live capture; marker confirmed in system layer |
 | WorkBuddy / WorkBuddy AI | 5.9.3 / 5.9.4 | Identity context verified (`IDENTITY.md`, `SOUL.md`, `USER.md` & `customPrompt`; the international build stores it in `app/app-config.json`); hot-switching unverified |
 
 Detailed compatibility notes, request role mappings, and known limitations are documented in [docs/compatibility.md](docs/compatibility.md).
+
+### Claude Desktop
+
+Claude Desktop's **Code** mode is listed separately as `claude-desktop`; the command-line version stays `claude`, and each can use its own persona and mode.
+
+1. Open Code mode in Claude Desktop once and wait until it is ready.
+2. In the agent-purge console, select `claude-desktop` and click Apply (or run `agent-purge install claude-desktop`).
+3. Start a **new** Code session in Claude Desktop; sessions that are already open stay as they were.
+4. After changing persona or mode, start a new session again. After Claude Desktop updates itself, click Apply once more.
+
+To stop, pause or turn off `claude-desktop`; `agent-purge uninstall claude-desktop` restores Claude Desktop to its original state. Claude Desktop keeps working even if agent-purge is removed or moved. Chat, Cowork and remote sessions are not covered.
 
 ## Pause and Uninstall
 
